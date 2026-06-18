@@ -35,18 +35,20 @@ const sapaanKamus = [
 ];
 
 const checkSapaanOnly = (text) => {
-  // Regex yang sudah diperbaiki (minus dipindah ke paling belakang sebelum tutup kurung siku)
-  const cleanedText = text.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\_`~()? -]/g, "");
+  // Membersihkan semua tanda baca, simbol, dan spasi dengan aman
+  const cleanedText = text
+    .toLowerCase()
+    .trim()
+    .replace(/[\-[\]{}()*+?.,\\/^$|#\s]/g, ""); // Semua karakter khusus di-escape dengan aman
   
-  // Jika teks kosong setelah dibersihkan atau termasuk dalam daftar kamus sapaan murni
+  // Jika termasuk dalam daftar kamus sapaan murni
   return sapaanKamus.some(sapaan => cleanedText === sapaan.replace(/\s+/g, ""));
 };
-
 // ==========================================
 // FUNGSI GENERATE MULTI-TURN CHAT
 // ==========================================
 const generateWithChatHistory = async (currentPrompt, formattedHistory) => {
-  const availableModels = ["gemini-1.5-flash", "gemini-2.5-flash"];
+  const availableModels = [ "gemini-3.1-flash-lite-preview" ];
   let attempts = 0;
   const maxAttempts = 3;
 
