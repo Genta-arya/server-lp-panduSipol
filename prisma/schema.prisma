@@ -1,0 +1,29 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Tabel utama untuk menyimpan FAQ yang sudah diverifikasi
+model Faq {
+  id        Int      @id @default(autoincrement())
+  question  String   @db.VarChar(255) // Kata kunci atau pertanyaan utama
+  answer    String   @db.Text        // Jawaban resmi
+  hitCount  Int      @default(0)      // Seberapa sering FAQ ini diakses
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Tabel untuk caching jawaban dari Gemini (untuk pertanyaan baru)
+model AiCache {
+  id        Int      @id @default(autoincrement())
+  prompt    String   @db.Text        // Pertanyaan asli dari user
+  response  String   @db.Text        // Jawaban dari AI
+  modelUsed String   @default("gemini-1.5-flash")
+  createdAt DateTime @default(now())
+}
