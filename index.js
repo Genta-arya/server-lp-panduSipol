@@ -48,7 +48,7 @@ const checkSapaanOnly = (text) => {
 // FUNGSI GENERATE MULTI-TURN CHAT
 // ==========================================
 const generateWithChatHistory = async (currentPrompt, formattedHistory) => {
-  const availableModels = [ "gemini-3.1-flash-lite-preview" ];
+  const availableModels = [ "gemini-3.1-flash-lite-preview", "gemini-2.5-flash", "gemini-2.5-flash-lite" ];
   let attempts = 0;
   const maxAttempts = 3;
 
