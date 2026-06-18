@@ -35,7 +35,9 @@ const sapaanKamus = [
 ];
 
 const checkSapaanOnly = (text) => {
-  const cleanedText = text.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~() font-medium?]/g, "");
+  // Regex yang sudah diperbaiki (minus dipindah ke paling belakang sebelum tutup kurung siku)
+  const cleanedText = text.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\_`~()? -]/g, "");
+  
   // Jika teks kosong setelah dibersihkan atau termasuk dalam daftar kamus sapaan murni
   return sapaanKamus.some(sapaan => cleanedText === sapaan.replace(/\s+/g, ""));
 };
